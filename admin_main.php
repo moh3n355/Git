@@ -2,7 +2,11 @@
 session_start();
 
 # for comeback error that will create in the auth/validation
-$_SESSION['path'] = "/test/index.php";
+$_SESSION['path'] = "/test/admin_main.php";
+
+# declare table for edit admin information in the that used check isAdmin in the auth/login_prossec and check isAdmin
+# for create a object as admin class(admin/user)
+$_SESSION['table'] = "admins";
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +14,7 @@ $_SESSION['path'] = "/test/index.php";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main</title>
+  <title>Admin</title>
 
   <style>
     body {
@@ -58,6 +62,12 @@ $_SESSION['path'] = "/test/index.php";
       background-color: green;
       color: white;
     }
+
+    input[value="Back"] {
+      background-color: red;
+      color: white;
+    }
+
     p {
       color: red;
       margin-top: 15px;
@@ -65,34 +75,32 @@ $_SESSION['path'] = "/test/index.php";
   </style>
 </head>
 <body>
-    <p style="color: blue; font-size: 18px; font-weight: bold; line-height: 1.6;">
-        This program uses a localhost database.<br>
-        To run this program, please enter your localhost's username and password.
-    </p>
-    <p style="color: red; font-size: 20px; font-weight: bold; line-height: 1.6;">
-        If you already have test database, First drop that
-    </p>
 
-  <form action= '/test/auth/setup_prossecc.php' method="POST">
+  <form action="/TEST/auth/login_prossec.php" method="POST">
     <label>
-      user of database:<br>
-      <input type="text" name="user" 
-        value="<?php echo isset($_COOKIE['user']) ? $_COOKIE['user'] : ''; ?>">
+      name:<br>
+      <input type="text" name="username"
+        value="<?php echo isset($_COOKIE['AdminName']) ? $_COOKIE['AdminName'] : ''; ?>">
     </label>
 
     <label>
-      password of database:<br>
-      <input type="password" name="password" 
-        value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
+      password:<br>
+      <input type="password" name="userpassword"
+        value="<?php echo isset($_COOKIE['AdminPassword']) ? $_COOKIE['AdminPassword'] : ''; ?>">
     </label>
     
     <input type="submit" value="submit">
   </form><br>
+
+  <input type="button" value="Back" onclick="window.location.href='/test/main.php'"><br><br>
+
+  <!-- error received from auth/validation or auth/login_prossecc -->
   <p>
     <?php 
       echo isset($_SESSION["error"]) ? $_SESSION["error"] : null; 
       unset($_SESSION["error"]);
     ?>
   </p>
+
 </body>
 </html>
