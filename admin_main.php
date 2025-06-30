@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 # for comeback error that will create in the auth/validation
 $_SESSION['path'] = "/test/admin_main.php";
