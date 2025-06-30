@@ -1,3 +1,5 @@
 <?php
-echo "help";
+#$help is help me
+$help = "help me";
+echo $help;
 ?>
